@@ -1,1 +1,1 @@
-# js-OOP
+# Learning javaScript fundamentals with OOP
