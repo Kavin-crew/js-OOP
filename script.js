@@ -1,5 +1,6 @@
 'use strict';
 
+// constructor class
 const Person = function (firstname, birthYear) {
   // Instance properties
   this.firstname = firstname;
@@ -68,36 +69,86 @@ const Person = function (firstname, birthYear) {
 // console.dir(x => x + 1);
 
 
-// coding challenge#1
-// my solution
-const Car = function(make, speed){
-  this.make = make;
-  this.speed = speed;
+// // coding challenge#1
+// // my solution
+// const Car = function(make, speed){
+//   this.make = make;
+//   this.speed = speed;
+// }
+
+// Car.prototype.accelerate = function(){
+//   console.log(this.speed += 10)
+// }
+
+// Car.prototype.break = function(){
+//   console.log(this.speed -= 5)
+// }
+
+// const bmw = new Car('BMW', 120)
+// const mercedes = new Car('Mercedes', 95)
+// console.log(bmw, mercedes);
+// // result: Object { make: "BMW", speed: 120 } Object { make: "Mercedes", speed: 95 }
+
+// bmw.accelerate();
+// // result: 130
+// bmw.break();
+// // result: 125
+// bmw.accelerate();
+// // result: 135
+
+// mercedes.accelerate();
+// // result: 105
+// mercedes.break();
+// // result: 100
+// mercedes.accelerate();
+// // result: 110
+
+// ES6 Classes
+// // class expression
+// const PersonCL = class{}
+
+// class declaration
+class PersonCl{
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Methods will be added to .prototype property
+  calcAge(){
+    console.log(2023 - this.birthYear);
+  }
+
+  greet(){
+    console.log(`Hey ${this.fullName}`)
+  }
+
+  get age() {
+    return 2023 - this.birthYear;
+  }
+
+  set fullName(name) {
+    if(name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get fullName() {
+    return this._fullName;  
+  }
 }
 
-Car.prototype.accelerate = function(){
-  console.log(this.speed += 10)
-}
+const jessica = new PersonCl('Jessica Stellar', 1996)
+console.log(jessica)
+// result: Object { firstname: "Jessica", birthYear: 1996 }
 
-Car.prototype.break = function(){
-  console.log(this.speed -= 5)
-}
+jessica.calcAge();
+// result: 27
 
-const bmw = new Car('BMW', 120)
-const mercedes = new Car('Mercedes', 95)
-console.log(bmw, mercedes);
-// result: Object { make: "BMW", speed: 120 } Object { make: "Mercedes", speed: 95 }
+console.log(jessica.__proto__ === PersonCl.__proto__);
+// result: true
 
-bmw.accelerate();
-// result: 130
-bmw.break();
-// result: 125
-bmw.accelerate();
-// result: 135
-
-mercedes.accelerate();
-// result: 105
-mercedes.break();
-// result: 100
-mercedes.accelerate();
-// result: 110
+// PersonCl.prototype.greet = function(){
+//   console.log(`Hey ${this.firstname}`)
+// }
+jessica.greet();
+// result: Hey Jessica
