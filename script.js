@@ -227,7 +227,46 @@ const Person = function (firstname, birthYear) {
   this.firstname = firstname;
   this.birthYear = birthYear;
 };
-
+// add calcAge method
 Person.prototype.calcAge = function () {
   console.log(2023 - this.birthYear);
 };
+
+const Student = function (firstname, birthYear, course) {
+  // this.firstname = firstname;
+  // this.birthYear = birthYear;
+
+  // to inherit the person properties
+  Person.call(this, firstname, birthYear);
+  this.course = course;
+};
+
+// to inherit student to person
+Student.prototype = Object.create(Person.prototype);
+
+// add method to the student class
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstname} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+// mike.introduce();
+// result: My name is Mike and I study Computer Science
+
+// to fix the display of Person instead of Student
+Student.prototype.constructor = Student;
+
+// Your tasks:
+// 1. Use a constructor function to implement an Electric Car (called 'EV') as a child
+// "class" of 'Car'. Besides a make and current speed, the 'EV' also has the
+// current battery charge in % ('charge' property)
+// 2. Implement a 'chargeBattery' method which takes an argument
+// 'chargeTo' and sets the battery charge to 'chargeTo'
+// 3. Implement an 'accelerate' method that will increase the car's speed by 20,
+// and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140
+// km/h, with a charge of 22%'
+// 4. Create an electric car object and experiment with calling 'accelerate',
+// 'brake' and 'chargeBattery' (charge to 90%). Notice what happens when
+// you 'accelerate'! Hint: Review the definiton of polymorphism 😉
+// Test data:
+// § Data car 1: 'Tesla' going at 120 km/h, with a charge of 23%
