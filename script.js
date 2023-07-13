@@ -380,36 +380,118 @@ Student.prototype.constructor = Student;
 // martha.calcAge();
 // // result: I'm 31 years old, but as a student I feel more like 41
 
-class Account {
-  constructor(owner, currency, pin) {
-    this.owner = owner;
-    this.currency = currency;
-    this.pin = pin;
+// class Account {
+//   // 1. Public fields (instances)
+//   locale = navigator.language;
 
-    this.movements = [];
-    this.locale = navigator.language;
+//   // 2. Private fields (instances)
+//   #movements = [];
+//   #pin;
 
-    console.log(`Thanks for opening an account, ${owner}`);
+//   constructor(owner, currency, pin) {
+//     this.owner = owner;
+//     this.currency = currency;
+
+//     // protected property
+//     this.#pin = pin;
+//     // this._movements = [];
+//     // this.locale = navigator.language;
+
+//     console.log(`Thanks for opening an account, ${owner}`);
+//   }
+
+//   // Public interface
+//   getMovements() {
+//     return this.#movements;
+//   }
+//   deposit(val) {
+//     this.#movements.push(val);
+//     return this;
+//   }
+//   withdraw(val) {
+//     this.deposit(-val);
+//     return this;
+//   }
+//   requestLoan(val) {
+//     if (this.#approveLoan(val)) {
+//       this.deposit(val);
+//       console.log('Loan approved');
+//       return this;
+//     }
+//   }
+//   #approveLoan(val) {
+//     return true;
+//   }
+//   static helper() {
+//     console.log(`Helper`);
+//   }
+// }
+
+// const acc1 = new Account('Jonas', 'EUR', 1111);
+// console.log(acc1);
+// // result: Object { owner: "Jonas", currency: "EUR", pin: 1111, movements: [], locale: "en-GB" }
+
+// Account.helper();
+// // result: Helper
+
+// acc1
+//   .deposit(200)
+//   .deposit(400)
+//   .withdraw(25)
+//   .requestLoan(50000)
+//   .deposit(200)
+//   .withdraw(10000)
+//   .withdraw(5000);
+// console.log(acc1.getMovements());
+// // result: Array(7) [ 200, 400, -25, 50000, 200, -10000, -5000 ]
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
   }
 
-  // Public interface
-  deposit(val) {
-    this.movements.push(val);
+  accelerate() {
+    console.log((this.speed += 10));
+    return this;
   }
-  withdraw(val) {
-    this.deposit(-val);
+
+  brake() {
+    console.log((this.speed -= 5));
+    return this;
   }
-  approveLoan(val) {
-    return true;
+
+  get speedUS() {
+    return this.speed / 1.6;
   }
-  requestLoan(val) {
-    if (this.approveLoan(val)) {
-      this.deposit(val);
-      console.log('Loan approved');
-    }
+
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
   }
 }
 
-const acc1 = new Account('Jonas', 'EUR', 1111);
-console.log(acc1);
-// result: Object { owner: "Jonas", currency: "EUR", pin: 1111, movements: [], locale: "en-GB" }
+class EVCL extends CarCl {
+  #charge;
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    return this;
+  }
+  accelerate() {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `'${this.make}' going at ${this.speed}, with a charge of ${this.#charge}%`
+    );
+    return this;
+  }
+}
+
+const rivian = new EVCL('Rivian', 120, 23);
+rivian.accelerate().brake().chargeBattery(90).accelerate();
+
+console.log(rivian.speedUS);
+// result: 96.875
