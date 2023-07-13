@@ -379,3 +379,37 @@ Student.prototype.constructor = Student;
 // // result: My name is Martha Jones and I study Computer Science
 // martha.calcAge();
 // // result: I'm 31 years old, but as a student I feel more like 41
+
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+
+    this.movements = [];
+    this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  // Public interface
+  deposit(val) {
+    this.movements.push(val);
+  }
+  withdraw(val) {
+    this.deposit(-val);
+  }
+  approveLoan(val) {
+    return true;
+  }
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit(val);
+      console.log('Loan approved');
+    }
+  }
+}
+
+const acc1 = new Account('Jonas', 'EUR', 1111);
+console.log(acc1);
+// result: Object { owner: "Jonas", currency: "EUR", pin: 1111, movements: [], locale: "en-GB" }
