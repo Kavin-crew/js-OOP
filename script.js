@@ -256,6 +256,7 @@ const mike = new Student('Mike', 2020, 'Computer Science');
 // to fix the display of Person instead of Student
 Student.prototype.constructor = Student;
 
+// coding challenge #3
 // Your tasks:
 // 1. Use a constructor function to implement an Electric Car (called 'EV') as a child
 // "class" of 'Car'. Besides a make and current speed, the 'EV' also has the
@@ -270,3 +271,111 @@ Student.prototype.constructor = Student;
 // you 'accelerate'! Hint: Review the definiton of polymorphism 😉
 // Test data:
 // § Data car 1: 'Tesla' going at 120 km/h, with a charge of 23%
+
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
+
+// Car.prototype.accelerate = function () {
+//   console.log((this.speed += 10));
+// };
+
+// Car.prototype.brake = function () {
+//   console.log((this.speed -= 5));
+// };
+
+// const EV = function (make, speed, charge) {
+//   Car.call(this, make, speed);
+//   this.charge = charge;
+// };
+
+// EV.prototype = Object.create(Car.prototype);
+
+// EV.prototype.chargeBattery = function (chargeTo) {
+//   // this.charge += chargeTo;
+//   this.charge = chargeTo;
+// };
+
+// EV.prototype.accelerate = function () {
+//   this.speed += 20;
+//   this.charge--;
+//   console.log(
+//     `'${this.make}' going at ${this.speed}, with a charge of ${this.charge}%`
+//   );
+// };
+
+// const tesla = new EV('Tesla', 120, 22);
+
+// console.log(EV, tesla, Car);
+// tesla.chargeBattery(5);
+// tesla.accelerate();
+// tesla.accelerate();
+// tesla.brake();
+// tesla.chargeBattery(5);
+// tesla.accelerate();
+
+// ES6 Classes
+// class expression
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
+
+//   // Methods will be added to .prototype property
+//   calcAge() {
+//     console.log(2023 - this.birthYear);
+//   }
+
+//   greet() {
+//     console.log(`Hey ${this.fullName}`);
+//   }
+
+//   get age() {
+//     return 2023 - this.birthYear;
+//   }
+
+//   set fullName(name) {
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name!`);
+//   }
+
+//   get fullName() {
+//     return this._fullName;
+//   }
+
+//   // Static method
+//   static hey() {
+//     console.log('Hey theke 👋');
+//   }
+// }
+
+// class StudentCL extends PersonCl {
+//   // creating constructor will be optional if we don't need to add a new property in the child
+//   // since we need to add course, then we need to create a constructor to inherit properties and methods to the parent
+//   constructor(fullName, birthYear, course) {
+//     // Always need to happen first to inherit the properties and methods
+//     super(fullName, birthYear);
+//     this.course = course;
+//   }
+
+//   introduce() {
+//     console.log(`My name is ${this.fullName} and I study ${this.course}`);
+//   }
+//   calcAge() {
+//     console.log(
+//       `I'm ${
+//         2023 - this.birthYear
+//       } years old, but as a student I feel more like ${
+//         2023 - this.birthYear + 10
+//       }`
+//     );
+//   }
+// }
+
+// const martha = new StudentCL('Martha Jones', 1992, 'Computer Science');
+// martha.introduce();
+// // result: My name is Martha Jones and I study Computer Science
+// martha.calcAge();
+// // result: I'm 31 years old, but as a student I feel more like 41
